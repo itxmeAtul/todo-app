@@ -1,31 +1,32 @@
+import { useState } from "react";
 import "./App.css";
 import Header from "./Component/Header";
 import CustomCard from "./Component/Card";
 import TodoCard from "./Component/TodoCard";
 import Form from "./Component/Form";
 import { Box, ChakraProvider, useToast } from "@chakra-ui/react";
-import { useState } from "react";
 import { uuidv4 } from "./Helpers/util";
+import fileSearch from "./file-searching.gif";
 
 function App() {
   const initialValues = { title: "", description: "", tags: "", priority: "" };
   const [formData, setFormData] = useState(initialValues);
   const [formModel, setFormModel] = useState(false);
   const [todo, setTodo] = useState([
-    {
-      title: "Buy Milk",
-      description: "Buy Milf from kamal store",
-      tags: "Milk,shop",
-      priority: "l",
-      id: "9ca9eed9-e138-4113-863a-26c577ecefa3",
-    },
-    {
-      title: "Buy Cheese",
-      description: "Buy Cheese from kamal store",
-      tags: "Cheese,shop",
-      priority: "r",
-      id: "8ca9eed9-e138-4113-863a-26c577ecefa3",
-    },
+    // {
+    //   title: "Buy Milk",
+    //   description: "Buy Milf from kamal store",
+    //   tags: "Milk,shop",
+    //   priority: "l",
+    //   id: "9ca9eed9-e138-4113-863a-26c577ecefa3",
+    // },
+    // {
+    //   title: "Buy Cheese",
+    //   description: "Buy Cheese from kamal store",
+    //   tags: "Cheese,shop",
+    //   priority: "r",
+    //   id: "8ca9eed9-e138-4113-863a-26c577ecefa3",
+    // },
   ]);
   function handleFormModel() {
     setFormModel(!formModel);
@@ -80,6 +81,19 @@ function App() {
             titleCss={"font-semibold text-gray-600"}
             formTitle={"To-do List"}
           />
+          {!todo.filter((xx) => xx.priority !== "r").length > 0 && (
+            <div>
+              {/* <div>
+                <img
+                  src={fileSearch}
+                  alt="loading..."
+                  height={250}
+                  width={250}
+                />
+              </div> */}
+              <div>No Data Found</div>
+            </div>
+          )}
           {todo
             .filter((xx) => xx.priority !== "r")
             .map((el) => {
@@ -95,17 +109,28 @@ function App() {
                 />
               );
             })}
-          <Header
-            formTitle={"Completed Task"}
-            titleCss={"font-semibold text-gray-600"}
-          />
-          {todo
-            .filter((xx) => xx.priority === "r")
-            .map((el) => {
-              return (
-                <TodoCard cardStyle={""} disable={true} {...el} key={el.id} />
-              );
-            })}
+
+          {todo.length > 0 && (
+            <>
+              {" "}
+              <Header
+                formTitle={"Completed Task"}
+                titleCss={"font-semibold text-gray-600"}
+              />
+              {todo
+                .filter((xx) => xx.priority === "r")
+                .map((el) => {
+                  return (
+                    <TodoCard
+                      cardStyle={""}
+                      disable={true}
+                      {...el}
+                      key={el.id}
+                    />
+                  );
+                })}
+            </>
+          )}
         </CustomCard>
 
         <Form

@@ -53,7 +53,7 @@ const Form = ({ isOpen, onClose, handleForm, onSubmit, todoFormData }) => {
                   <option value="l">Low</option>
                   <option value="m">Medium</option>
                   <option value="h">High</option>
-                  {/* <option value="r">Resolved</option> */}
+                  <option value="r">Resolved</option>
                 </Select>
               </div>
             </div>
@@ -63,7 +63,7 @@ const Form = ({ isOpen, onClose, handleForm, onSubmit, todoFormData }) => {
                 <Input
                   name="tags"
                   size="sm"
-                  placeholder="Enter your todo"
+                  placeholder={`Enter "," for multiple tags`}
                   defaultValue={todoFormData.tags}
                 />
               </div>
